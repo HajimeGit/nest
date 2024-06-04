@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { UserEntity } from '../users/users.entity';
 
 @Injectable()
 export class AuthService {
@@ -42,5 +43,27 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  /**
+   * Register a new user.
+   * @param {any} user
+   */
+  async register(user: any) {
+    const { username, password } = user;
+
+    if (!username || !password) {
+      return {
+        message: 'Please provide a username and password',
+      };
+    }
+
+    const result = await this.usersService.create(user);
+
+    if (result) {
+      return {
+        message: 'User created successfully',
+      };
+    }
   }
 }

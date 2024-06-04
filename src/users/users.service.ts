@@ -25,4 +25,14 @@ export class UsersService {
       where: { username },
     });
   }
+
+  /**
+   * Create a new user.
+   *
+   * @param {UserEntity} user
+   * @returns {Promise<UserEntity>}
+   */
+  async create(user: UserEntity): Promise<UserEntity> {
+    return await this.usersRepository.save(user);
+  }
 }

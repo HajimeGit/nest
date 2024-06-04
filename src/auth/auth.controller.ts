@@ -19,4 +19,13 @@ export class AuthController {
   async login(@Request() req) {
     return this.authService.login(req.user);
   }
+
+  /**
+   * This route will be used to register a new user.
+   * @param {Request} req
+   */
+  @Post('/register')
+  async register(@Request() req: Request) {
+    return this.authService.register(req.body);
+  }
 }
